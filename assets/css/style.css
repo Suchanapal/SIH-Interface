@@ -1,0 +1,113 @@
+.button{
+    
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    transition-property: background-color,border-color,color,box-shadow,filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 16px 14px 18px;
+    color: #fff;
+    background-color: #03a4ed;
+    height: 48px;
+    
+
+}
+
+.button:hover{
+    background-color: 
+    #ff305b;
+}
+
+
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+   */
+
+   .our-portfolio{
+    padding-bottom: 100px;
+    padding-top: 100px;
+   }
+
+   .thermal{
+    margin: 30px;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 50px;
+    background-color: rgb(241, 252, 255);
+    
+
+   }
+
+
+   .cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+   }
+  .thermal-container {
+    display: flex;
+    position: relative;
+    width: 600px;
+    height: 500px;
+    background-color: aquamarine;
+    align-self: center;
+  }
+  
+  canvas {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .color-bar {
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to top, #35c900 , red);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-left: 10px;
+  }
+  
+  .color-bar div {
+    height: 30px;
+    color: white;
+  }
+  
+
+ .dv{
+    height: 500px;
+ }
+.ed{
+    align-self: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+/* 
+
+
+
