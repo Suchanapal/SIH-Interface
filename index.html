@@ -8,7 +8,10 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
     <script src="plotly.min.js"></script>
+   
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -116,7 +119,7 @@
                     after an hour. AREAS ensures rapid response for higher
                     <a
                       rel="nofollow"
-                      href="https://templatemo.com/page/1"
+                      href=""
                       target="_parent"
                     >
                       survival rates.</a
@@ -277,10 +280,28 @@
           </a>
         </div>
         <div class="thermal-container">
-          <canvas id="thermal-canvas"></canvas>
-          <div class="color-bar" id="color-bar"></div>
+          <div id="thermal-plot"></div>
+
         </div>
       </div>
+
+      <section class="lowchart">
+        
+      
+        <h2 class="primaryheader wow bounceIn"
+        data-wow-duration="1s"
+        data-wow-delay="0.2s">Doppler <span class="blue">Frequency</span><span class="red">Motion</span></h2>
+        <div class="sh wow fadeIn"
+            data-wow-duration="1s"
+            data-wow-delay="0.25s">
+        Microwave Doppler radar emits microwave signals and detects the reflected signals from the target. The frequency of the reflected signal is Doppler shifted due to the relative motion between the radar and the target. A <span class="red">peak</span> in the frequency of the reflected signal indicates that the target is moving towards the radar, which could be a sign that a human is present.
+        </div>
+        
+<div id="chart"></div>
+</section>
+      </div>
+
+       
 
     </div>
     <!-- ***** chart area  End ***** -->

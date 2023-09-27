@@ -1,64 +1,100 @@
-const canvas = document.getElementById('thermal-canvas');
-const ctx = canvas.getContext('2d');
-
 const rows = 24;
 const cols = 32;
 
-function generateRandomTemperature() {
-  return (Math.random() * 14) + 20;
+function getColorScale() {
+  console.log('Getting color scale');
+  return [
+    [0, 'rgb(001, 050, 032)'],
+    
+    [1, 'rgb(255,255,153)']
+  ];
 }
 
-const sampleData = [];
-for (let i = 0; i < rows; i++) {
-  const row = [];
-  for (let j = 0; j < cols; j++) {
-    row.push(generateRandomTemperature());
-  }
-  sampleData.push(row);
-}
-
-function drawThermalData(data) {
-  const cellWidth = canvas.width / cols;
-  const cellHeight = canvas.height / rows;
-
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      const value = data[i][j];
-      const color = getColor(value);
-      ctx.fillStyle = color;
-      ctx.fillRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight);
+function updateHeatmapWithData(data) {
+  console.log('update heatmap:', data);
+  const trace = {
+    z: data,
+    type: 'heatmap',
+    colorscale: getColorScale(),
+    colorbar: {
+      title: 'Temperature',
+      titleside: 'top',
+      tickvals: [0, 5, 10, 15, 20], // Adjusted tickvals
+      ticktext: ['20', '15', '10', '5', '0'] // Adjusted ticktext
     }
+  };
+
+  const layout = {
+    title: 'Thermal Data',
+    xaxis: { ticks: '', side: 'bottom' }, // Changed side to 'bottom'
+    yaxis: { 
+      ticks: '', 
+      ticksuffix: ' ', 
+      tickvals: [0, 5, 10, 15, 20], // Adjusted tickvals
+      ticktext: ['','20', '15', '10', '5', '0'], // Adjusted ticktext
+      // autorange: 'reversed' // Reverse the y-axis
+    }
+  };
+
+  Plotly.newPlot('thermal-plot', [trace], layout);
+}
+
+
+async function fetchDataFromEndpoint() {
+  console.log('Fetching data from endpoint')
+  try {
+    const response = await fetch('https://team-vigyan.vercel.app/api/v1/thermal');
+    const data = await response.json();
+
+    if (data.length === rows && data.every(row => row.length === cols)) {
+      updateHeatmapWithData(data);
+    } else {
+      console.error('Invalid data format received from the endpoint.');
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
-
-  drawColorBar();
 }
 
-function getColor(value) {
-  const minTemp = 20.0;
-  const maxTemp = 34.0;
-  const ratio = (value - minTemp) / (maxTemp - minTemp);
 
-  const r = Math.floor(255 * (1 - ratio));
-  const g = Math.floor(255 * ratio);
-  const b = 0;
+setInterval(fetchDataFromEndpoint, 1000);
 
-  return `rgb(${r},${g},${b})`;
+
+
+
+
+
+
+
+
+
+
+// chart_script.js doppler 
+let periods = [];
+let frequencies = [];
+const maxDataPoints = 15; 
+
+let chart = Plotly.newPlot('chart', [{
+    x: periods,
+    y: frequencies,
+    type: 'scatter', 
+    fill: 'tozeroy', 
+    fillcolor: 'rgba(218, 224, 255, 0.8)' 
+}]);
+
+function updateChart() {
+    let newPeriod = new Date();
+    let newFrequency = Math.floor(Math.random() * 100);
+
+    periods.push(newPeriod);
+    frequencies.push(newFrequency);
+
+    if (periods.length > maxDataPoints) {
+        periods.shift(); 
+        frequencies.shift();
+    }
+
+    Plotly.update('chart', {x: [periods], y: [frequencies]});
 }
 
-function drawColorBar() {
-  const colorBar = document.getElementById('color-bar');
-
-  for (let i = 34; i >= 20; i -= 2) {
-    const color = getColor(i);
-
-    const colorBlock = document.createElement('div');
-    colorBlock.style.backgroundColor = color;
-    colorBar.appendChild(colorBlock);
-
-    const label = document.createElement('div');
-    label.textContent = i.toString();
-    colorBar.appendChild(label);
-  }
-}
-
-drawThermalData(sampleData);
+setInterval(updateChart, 200);
