@@ -4,9 +4,11 @@ const cols = 32;
 function getColorScale() {
   console.log('Getting color scale');
   return [
-    [0, 'rgb(001, 050, 032)'],
-    
-    [1, 'rgb(255,255,153)']
+    [0, 'rgb(0,0,139)' ],
+    [0.25, 'rgb(0,204,0)'],
+    [0.5, 'rgb(255,255,0)'],
+    [0.75,'rgb(255,128,0)' ],
+    [1, 'rgb(255,0,0)']
   ];
 }
 
@@ -19,26 +21,19 @@ function updateHeatmapWithData(data) {
     colorbar: {
       title: 'Temperature',
       titleside: 'top',
-      tickvals: [0, 5, 10, 15, 20], // Adjusted tickvals
-      ticktext: ['20', '15', '10', '5', '0'] // Adjusted ticktext
+      tickvals: [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7],
+      ticktext: ['20', '22', '24', '26', '28', '30', '32', '34']
     }
   };
 
   const layout = {
     title: 'Thermal Data',
-    xaxis: { ticks: '', side: 'bottom' }, // Changed side to 'bottom'
-    yaxis: { 
-      ticks: '', 
-      ticksuffix: ' ', 
-      tickvals: [0, 5, 10, 15, 20], // Adjusted tickvals
-      ticktext: ['','20', '15', '10', '5', '0'], // Adjusted ticktext
-      // autorange: 'reversed' // Reverse the y-axis
-    }
+    xaxis: { ticks: '', side: 'bottom',  },
+    yaxis: { ticks: '', ticksuffix: ' ', width: 900, height: 600  }
   };
 
   Plotly.newPlot('thermal-plot', [trace], layout);
 }
-
 
 async function fetchDataFromEndpoint() {
   console.log('Fetching data from endpoint')
@@ -47,7 +42,7 @@ async function fetchDataFromEndpoint() {
     const data = await response.json();
 
     if (data.length === rows && data.every(row => row.length === cols)) {
-      updateHeatmapWithData(data);
+      updateHeatmapWithData(data.reverse());
     } else {
       console.error('Invalid data format received from the endpoint.');
     }
@@ -57,15 +52,7 @@ async function fetchDataFromEndpoint() {
 }
 
 
-setInterval(fetchDataFromEndpoint, 1000);
-
-
-
-
-
-
-
-
+setInterval(fetchDataFromEndpoint, 10);
 
 
 

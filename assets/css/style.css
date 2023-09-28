@@ -59,6 +59,7 @@
     flex-direction: row;
     justify-content: space-around;
     margin-bottom: 30px;
+    align-items: center;
 
    }
   .thermal-container {
@@ -116,7 +117,9 @@
   background-size: cover;
 }
 
-
+.des{
+  width: 400px;
+}
 
 
 
